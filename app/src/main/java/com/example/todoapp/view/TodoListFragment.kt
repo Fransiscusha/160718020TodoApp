@@ -22,7 +22,7 @@ class TodoListFragment : Fragment() {
         {item -> doClick(item)})
 
     fun doClick(item:(Any)){
-        viewModel.clearTask(item as Todo)
+        viewModel.isDone(item as Todo)
     }
 
     override fun onCreateView(

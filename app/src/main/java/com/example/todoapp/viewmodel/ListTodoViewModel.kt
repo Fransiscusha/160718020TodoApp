@@ -20,7 +20,7 @@ class ListTodoViewModel(application: Application): AndroidViewModel(application)
     fun refresh(){
         launch {
             val db = buildDB(getApplication())
-            todoLD.value = db.todoDao().selectAllTodo()
+            todoLD.value = db.todoDao().selectNotCheckedTodo()
         }
     }
 
@@ -29,6 +29,14 @@ class ListTodoViewModel(application: Application): AndroidViewModel(application)
             val db = buildDB(getApplication())
             db.todoDao().deleteTodo(todo)
             todoLD.value = db.todoDao().selectAllTodo()
+        }
+    }
+
+    fun isDone(todo:Todo){
+        launch{
+            val db = buildDB(getApplication())
+            db.todoDao().updateTodo(todo.uuid)
+            todoLD.value = db.todoDao().selectNotCheckedTodo()
         }
     }
 
